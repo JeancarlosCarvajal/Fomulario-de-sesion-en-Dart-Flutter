@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:productos_app/screens/screens.dart';
 
-class HomeScreen extends StatelessWidget {
-   
-  const HomeScreen({Key? key}) : super(key: key);
-  
+void main() => runApp(MyApp());
+
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(
-         child: Text('HomeScreen'),
-      ),
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Productos App',
+      initialRoute: 'login',
+      routes: {
+        'login': (_) => LoginScreen(),
+        'home' : (_) => HomeScreen()
+      },
     );
   }
 }
