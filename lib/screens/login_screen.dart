@@ -110,16 +110,32 @@ class _LoginForm extends StatelessWidget {
               color: Colors.deepPurple,
               child: Container(
                 padding: const EdgeInsets.symmetric(horizontal: 80, vertical: 15),
-                child: const Text(
-                  'Ingresar',
+                child: Text(
+                  loginForm.isLoading
+                  ? 'Espere'
+                  : 'Ingresar',
                   style: TextStyle(color: Colors.white),
                 ),
               ),
-              onPressed: (){
+              onPressed: loginForm.isLoading ? null : () async {
+                // desabilitamos el boton
+                FocusScope.of(context).unfocus();
                 // TODO login Form
                 // si no el true no haga nada
                 if(!loginForm.isValidForm()) return; // usando el provider leemos el formKey.currentState?.validate() de formulario en cuestion
                 // si el formulario es valido hacemos una peticion http
+
+                // si la peticion http es valida entonces cargamos como true el getter indicando que se esta cargando la peticion
+                loginForm.isLoading = true;
+
+                // simular el tiempo de espera de la peticion http de dos segundos
+                await Future.delayed(Duration(seconds: 2));
+ 
+                //TODO validar si el login es correcto. falta
+                
+                // si la peticion http es recibida entonces cargamos como false el getter indicando que recibimos la respuesta y habiliatamos el boton optra vez
+                loginForm.isLoading = false;
+
                 Navigator.pushReplacementNamed(context, 'home');
               }
             )
